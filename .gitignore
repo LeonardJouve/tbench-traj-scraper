@@ -1,0 +1,14 @@
+# Scraped data (too large for git — use the scraper to download)
+trajectories/
+trajectories_*/
+
+# Scraper internal files
+_progress.json
+_leaderboard.json
+_tasks.json
+_trials.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
