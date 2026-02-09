@@ -4,7 +4,28 @@ Download agent trajectories from the [Terminal-Bench 2.0](https://www.tbench.ai/
 
 Terminal-Bench is a benchmark for evaluating AI agents on complex terminal tasks. Each leaderboard entry includes full agent trajectories (step-by-step tool calls, observations, and reasoning) in [ATIF v1.6](https://www.tbench.ai/docs) format.
 
-## Quick Start
+## Pre-scraped Data
+
+Download pre-scraped trajectories from [Releases](https://github.com/Jiacheng-Zhu-AIML/terminal_bench_trajectories/releases):
+
+| Agent | Model | Trajectories |
+|-------|-------|-------------|
+| terminus-2 | Claude Opus 4.6 | 445 |
+| terminus-2 | Claude Opus 4.5 | 445 |
+| terminus-2 | GPT-5.2 | 443 |
+| claude-code | Claude Opus 4.6 | 435 |
+| claude-code | Claude Opus 4.5 | 436 |
+| **Total** | | **2,204** |
+
+```bash
+# Download and extract
+wget https://github.com/Jiacheng-Zhu-AIML/terminal_bench_trajectories/releases/download/v0.1/trajectories.tar.gz
+tar xzf trajectories.tar.gz
+```
+
+> **Note:** Not all agents publish trajectory data. OpenAI Codex CLI and some other agents only have summary statistics on the leaderboard, not full trajectories.
+
+## Scrape More Data
 
 ```bash
 pip install requests
@@ -15,7 +36,7 @@ python scrape_trajectories.py -a terminus-2 -m claude-opus-4-6@anthropic
 # Download all trajectories for one agent
 python scrape_trajectories.py -a terminus-2
 
-# Download everything (~46K trajectories across all models)
+# Download everything (only agents that publish trajectories)
 python scrape_trajectories.py
 ```
 
