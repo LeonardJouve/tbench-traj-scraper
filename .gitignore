@@ -2,3 +2,5 @@
 trajectories/
 trajectories_*/
 __pycache__/
+trial_files/
+trial_files_*/
