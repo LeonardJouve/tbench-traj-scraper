@@ -17,7 +17,7 @@ from pathlib import Path
 
 import requests
 
-LEADERBOARD_URL = "https://www.tbench.ai/leaderboard/terminal-bench/2.0"  # serves the current leaderboard
+LEADERBOARD_URL = "https://www.tbench.ai/"
 HUB = "https://hub.harborframework.com"
 DATASET = f"{HUB}/datasets/terminal-bench/terminal-bench/4"
 HEADERS = {"User-Agent": "Mozilla/5.0"}

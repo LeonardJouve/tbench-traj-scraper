@@ -117,7 +117,8 @@ def main() -> int:
                 continue
             time.sleep(args.delay)
             try:
-                body = fetch(f"{API}/{trial}/files/{quote(path, safe='/')}", {"jobId": job}, args.retries, size)
+                # the Hub URL-decodes the path twice: Grok's "agent/sessions/%2Fapp/..." is only found as %25252F
+                body = fetch(f"{API}/{trial}/files/{quote(quote(path, safe='/'), safe='/')}", {"jobId": job}, args.retries, size)
             except RuntimeError as e:
                 failed.append(f"{trial} {path}: {e}")
                 print(f"FAILED {trial[:8]} {path}: {e}")

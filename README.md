@@ -39,9 +39,18 @@ Requests are retried with exponential backoff (connection errors, timeouts, trun
 
 Native logs differ per agent. Claude Code writes `agent/claude-code.txt` (stream-json: `init` with the exposed tools, timestamps, final `duration_ms` / `duration_api_ms`) and `agent/sessions/projects/*/*.jsonl`; Codex writes `agent/codex.txt` (no timestamps) and `agent/sessions/YYYY/MM/DD/rollout-*.jsonl` (a timestamp per event). A tool call's duration is the timestamp of its result minus the timestamp of the call.
 
+## Common tool-call trace (`extract_tool_calls.py`)
+
+Turns the session logs of Claude Code, Codex and Grok Build into one CSV, one row per tool call: tool name as invoked, command, `blocked_s` (how long the agent waited on the call), `gap_before_s` (time since the previous result: model and harness time). The column details are in the script's docstring.
+
+```bash
+python fetch_trial_files.py trajectories -i 'agent/sessions/*.jsonl'
+python extract_tool_calls.py trial_files -o tool_calls.csv
+```
+
 ## How it works
 
-1. `tbench.ai/leaderboard/terminal-bench/2.0` serves the current leaderboard (server-rendered rows: rank, agent, model, accuracy).
+1. `tbench.ai` server-renders the default (latest) leaderboard (rows: rank, agent, model, accuracy). The `?version=` selector is client-side only, so the scraper always gets the latest version.
 2. The Harbor Hub row page `.../leaderboards/{name}/rows/{rowId}?tab=results&page=N` lists the row's trials (trial id, job id, task, reward).
 3. `GET /api/trials/{trialId}/files/agent/trajectory.json?jobId={jobId}` returns the trajectory.
 
